@@ -28,6 +28,16 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+from decouple import config
+
+# Load environment variables
+WEATHER_API_KEY = config('WEATHER_API_KEY')
+WEATHER_API_BASE_URL = config('WEATHER_API_BASE_URL')
+REDIS_HOST = config('REDIS_HOST')
+REDIS_PORT = config('REDIS_PORT', cast=int)
+REDIS_DB = config('REDIS_DB', cast=int)
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,6 +47,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #custom apps
+    'weather',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -47,6 +61,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_ratelimit.middleware.RatelimitMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    #This middleware ensures that rate-limiting logic applies to relevant views.
+]
+
+#RATELIMIT_BLOCK = True
+RATELIMIT_VIEW = 'weather.views.rate_limit_exceeded_view'
+CORS_ALLOWED_ORIGINS = [
+    #"http://localhost:8000",
 ]
 
 ROOT_URLCONF = 'weather_api.urls'
@@ -79,6 +102,40 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': f'redis://{REDIS_HOST}:{REDIS_PORT}/{REDIS_DB}',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
+#For production readiness, implement logging to monitor errors and API usage
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': 'error.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
+
+
 
 
 # Password validation
