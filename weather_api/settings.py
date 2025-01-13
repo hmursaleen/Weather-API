@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ebkhezu)&(2y$-@liu0)ybg*cifzkaj8^3!8fq71g8k_jam!55'
+#SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 from decouple import config
 
 # Load environment variables
+SECRET_KEY = config('SECRET_KEY')
 WEATHER_API_KEY = config('WEATHER_API_KEY')
 WEATHER_API_BASE_URL = config('WEATHER_API_BASE_URL')
 REDIS_HOST = config('REDIS_HOST')
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
     #custom apps
     'weather',
     'corsheaders',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [
@@ -162,7 +164,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Dhaka'
 
 USE_I18N = True
 

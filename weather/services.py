@@ -11,14 +11,11 @@ def fetch_weather_data(city_name):
     base_url = settings.WEATHER_API_BASE_URL
 
     try:
-        # Construct the API URL
         url = f"{base_url}/{city_name}?unitGroup=metric&key={api_key}&contentType=json"
         
-        # Make the request to the third-party API
         response = requests.get(url)
         response.raise_for_status()
 
-        # Parse and return the weather data
         data = response.json()
         return {
             "city": city_name,
@@ -29,6 +26,5 @@ def fetch_weather_data(city_name):
             "wind_speed": f"{data['currentConditions']['windspeed']} km/h",
         }
     except requests.RequestException as e:
-        # Log the error (can use a logging system here)
         print(f"Error fetching weather data: {e}")
         return None

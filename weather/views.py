@@ -18,10 +18,7 @@ all HTTP methods (e.g., GET, POST) are subject to the rate limit.
 
 @method_decorator(ratelimit(key='ip', rate='5/m', block=True), name='dispatch')
 class WeatherView(View):
-    """
-    Class-based view for fetching weather data for a given city.
-    Limited to 5 requests per minute per IP.
-    """
+    
     def get(self, request, city_name):
         # Validate the city name
         if not city_name or not city_name.isalpha():
