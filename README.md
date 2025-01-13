@@ -95,6 +95,7 @@ Run all test cases with:
 ```bash
 python manage.py test
 ```
+---
 
 ## 📋 **Usage**
 - **Accessing the API**:
@@ -122,6 +123,7 @@ A cache miss fetches data from the third-party API:
 ```json
 {"message": "Cache miss! Data fetched from API.", "data": {...}}
 ```
+---
 
 ## 📂 **Project Structure**
 ```bash
@@ -137,6 +139,7 @@ weather-api/
 ├── .env                  # Environment variables (not committed)
 ├── README.md             # Project documentation
 ```
+---
 
 ## 🧑‍💻 **Contributing**
 Contributions are welcome! Please follow these steps:
@@ -159,8 +162,12 @@ Create a new branch:
 
 - **Open a Pull Request**
 
+---
+
 ## 📜 **License**
 This project is licensed under the MIT License. See the LICENSE file for details.
+
+---
 
 ## 📧 **Contact**
 For inquiries or feedback, contact:
@@ -168,6 +175,8 @@ For inquiries or feedback, contact:
 - **Name: Habibul Mursaleen**
 - **Email: habibulmursaleen@gmail.com**
 - **GitHub: hmursaleen**
+
+---
 
 ## 🌟 **Acknowledgments**
 - **Django Framework: For providing a robust web development platform.**
